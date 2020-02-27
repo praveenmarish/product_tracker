@@ -1,4 +1,8 @@
+# main design
+
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+from core import search, compare, send_mail
 
 
 class Ui_Dialog(object):
@@ -46,7 +50,7 @@ class Ui_Dialog(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.comboBox = QtWidgets.QComboBox(Dialog)
-        self.comboBox.setGeometry(QtCore.QRect(180, 160, 181, 22))
+        self.comboBox.setGeometry(QtCore.QRect(180, 160, 181, 23))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -123,6 +127,7 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        pass
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -133,17 +138,48 @@ class Ui_Dialog(object):
         self.pushButton.setText(_translate("Dialog", "search"))
         self.label_2.setText(_translate("Dialog", "Select browser:"))
         self.pushButton_2.setText(_translate("Dialog", "compare"))
-        self.pushButton_3.setText(_translate("Dialog", "sent maill"))
+        self.pushButton_3.setText(_translate("Dialog", "set maill"))
         self.label_3.setText(_translate("Dialog", "Maill id:"))
         self.label_4.setText(_translate("Dialog", "Password:"))
         self.lineEdit_2.setPlaceholderText(_translate("Dialog", "Enter maill id "))
         self.lineEdit_3.setPlaceholderText(_translate("Dialog", "Enter password"))
         self.pushButton_4.setText(_translate("Dialog", "clear id"))
-        self.pushButton_5.setText(_translate("Dialog", "send maill"))
+        self.pushButton_5.setText(_translate("Dialog", "send mail"))
         self.label_5.setText(_translate("Dialog", "Maill id:"))
         self.lineEdit_4.setPlaceholderText(_translate("Dialog", "Enter target maill id "))
         self.pushButton_6.setText(_translate("Dialog", "clear data"))
         self.pushButton_7.setText(_translate("Dialog", "close"))
+        
+        self.comboBox.addItem("google crome")
+        self.comboBox.addItem("edge")
+        self.comboBox.addItem("firefox")
+        self.comboBox.addItem("safare")
+        
+        self.pushButton.clicked.connect(self.search)
+        self.pushButton_2.clicked.connect(self.compare)
+        self.pushButton_3.clicked.connect(self.set_mail)
+        self.pushButton_4.clicked.connect(self.clear)
+        self.pushButton_5.clicked.connect(self.send_mail)
+        self.pushButton_6.clicked.connect(self.clear_data)
+        self.pushButton_7.clicked.connect(self.close)
+        pass
+    
+    
+    def search(self):
+        search(str(self.comboBox.currentText()))
+        pass
+    def compare(self):
+        pass
+    def set_mail(self):
+        pass
+    def clear(self):
+        pass
+    def send_mail(self):
+        pass
+    def clear_data(self):
+        pass
+    def close(self):
+        pass
 
 
 if __name__ == "__main__":
