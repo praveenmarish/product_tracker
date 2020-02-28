@@ -138,12 +138,12 @@ class Ui_Dialog(object):
         self.pushButton.setText(_translate("Dialog", "search"))
         self.label_2.setText(_translate("Dialog", "Select browser:"))
         self.pushButton_2.setText(_translate("Dialog", "compare"))
-        self.pushButton_3.setText(_translate("Dialog", "set maill"))
+        self.pushButton_3.setText(_translate("Dialog", "save link"))
         self.label_3.setText(_translate("Dialog", "Maill id:"))
         self.label_4.setText(_translate("Dialog", "Password:"))
         self.lineEdit_2.setPlaceholderText(_translate("Dialog", "Enter maill id "))
         self.lineEdit_3.setPlaceholderText(_translate("Dialog", "Enter password"))
-        self.pushButton_4.setText(_translate("Dialog", "clear id"))
+        self.pushButton_4.setText(_translate("Dialog", "show links"))
         self.pushButton_5.setText(_translate("Dialog", "send mail"))
         self.label_5.setText(_translate("Dialog", "Maill id:"))
         self.lineEdit_4.setPlaceholderText(_translate("Dialog", "Enter target maill id "))
@@ -151,9 +151,9 @@ class Ui_Dialog(object):
         self.pushButton_7.setText(_translate("Dialog", "close"))
         
         self.comboBox.addItem("google crome")
-        self.comboBox.addItem("edge")
-        self.comboBox.addItem("firefox")
-        self.comboBox.addItem("safare")
+        self.comboBox.addItem("microsoft edge")
+        self.comboBox.addItem("mozilla firefox")
+        #self.comboBox.addItem("safari")
         
         self.pushButton.clicked.connect(self.search)
         self.pushButton_2.clicked.connect(self.compare)
@@ -166,19 +166,27 @@ class Ui_Dialog(object):
     
     
     def search(self):
-        search(str(self.comboBox.currentText()))
+        search(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
     def compare(self):
+        compare()
         pass
     def set_mail(self):
         pass
     def clear(self):
+        
         pass
     def send_mail(self):
+        send_mail()
         pass
     def clear_data(self):
+        self.lineEdit.clear()
+        self.lineEdit_2.clear()
+        self.lineEdit_3.clear()
+        self.lineEdit_4.clear()
         pass
     def close(self):
+        QtCore.QCoreApplication.instance().quit()
         pass
 
 
