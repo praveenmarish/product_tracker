@@ -2,7 +2,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from core import search, compare, send_mail
+from core import set_browser, compare, send_mail
 
 
 class Ui_Dialog(object):
@@ -132,7 +132,7 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.lineEdit.setPlaceholderText(_translate("Dialog", "Enter name of a product"))
+        self.lineEdit.setPlaceholderText(_translate("Dialog", "Enter product name/URL"))
         self.label1.setText(_translate("Dialog", "Product name:"))
         self.label.setText(_translate("Dialog", "PRODUCT TRACKER"))
         self.pushButton.setText(_translate("Dialog", "search"))
@@ -166,7 +166,7 @@ class Ui_Dialog(object):
     
     
     def search(self):
-        search(str(self.comboBox.currentText()),self.lineEdit.text())
+        set_browser(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
     def compare(self):
         compare()
