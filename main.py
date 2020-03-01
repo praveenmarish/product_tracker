@@ -168,24 +168,30 @@ class Ui_Dialog(object):
     def search(self):
         set_browser(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
+    
     def compare(self):
-        compare()
+        compare(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
+    
     def save_link(self):
         
         pass
+    
     def show_link(self):
         
         pass
+    
     def send_mail(self):
         send_mail()
         pass
+    
     def clear_data(self):
         self.lineEdit.clear()
         self.lineEdit_2.clear()
         self.lineEdit_3.clear()
         self.lineEdit_4.clear()
         pass
+    
     def close(self):
         QtCore.QCoreApplication.instance().quit()
         pass
