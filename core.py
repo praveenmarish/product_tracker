@@ -2,29 +2,96 @@ from tkinter import *
 from tkinter import messagebox
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import os
+
+
+
+
+
+
+
+
+def flip_search(driver,product,url):
+    driver.get(url)
+    try:
+        login_pop = driver.find_element_by_class_name('_29YdH8')
+        # Here .click function use to tap on desire elements of webpage
+        login_pop.click()
+        print('pop-up closed')
+    
+    except:
+        print("log in")
+        
+    # Here I get search field id from driver
+    search_field = driver.find_element_by_class_name('LM6RPg')
+    # Here .send_keys is use to input text in search field
+    search_field.send_keys(product + '\n')
+    # Here time.sleep is used to add delay for loading context in browser
+    #time.sleep(2)
+    # Here we fetched driver page source from driver.
+    #page_html = driver.page_source
+    # Here BeautifulSoup is dump page source into html format
+    #soup = BeautifulSoup(page_html, 'html.parser')
+    #driver.quit()
+    pass
+
+
+def amaz_search(driver,product,url):
+    print (product)
+    driver.get(url)
+    
+        
+    # Here I get search field id from driver
+    search_field=driver.find_element_by_xpath("""//*[@id="twotabsearchtextbox"]""")
+    # Here .send_keys is use to input text in search field
+    search_field.send_keys(product)
+    search_field.submit()
+    # Here time.sleep is used to add delay for loading context in browser
+    #time.sleep(2)
+    # Here we fetched driver page source from driver.
+    #page_html = driver.page_source
+    # Here BeautifulSoup is dump page source into html format
+    #soup = BeautifulSoup(page_html, 'html.parser')
+    #driver.quit()
+    
+    pass
 
 
     
 def product_search(browser,product):
     
-    print (product)
+    #print (product)
     
     def search():
         #print("entered")
         #print(product) 
                   
         if (radio.get()==1):
-            matched_elements = browser.get("https://www.flipkart.com")
-            soup=BeautifulSoup(browser.page_source,'html.parser')
-            print(soup)
-            pass
+            url="https://www.flipkart.com"
+            #matched_elements = browser.get("https://www.flipkart.com")
+            #search=browser.find_element_by_xpath("""//*[@id="container"]/div/div[1]/div[1]/div[2]/div[2]/form/div/div/input""")
+            #element_enter.findElement(By.xpath("""""")).sendkeys(barcode);
+            #search.send_keys(product)
+            #search.submit()
+            #soup=BeautifulSoup(browser.page_source,'html.parser')
+            
+            #print(soup)
+            flip_search(browser,product,url)
+            tk.withdraw()
+            pass 
+        
         elif (radio.get()==2):
-            matched_elements = browser.get("https://www.amazon.com") 
-            soup=BeautifulSoup(browser.page_source,'html.parser')
-            print(soup)
+            url="https://www.amazon.in"
+            #matched_elements = browser.get("https://www.amazon.com") 
+            #soup=BeautifulSoup(browser.page_source,'html.parser')
+            #print(soup)
+            
+            amaz_search(browser,product,url)
+            tk.withdraw()
             pass
+        
         else:
-            ans=messagebox.askquestion("Confirm","Select a E-commerse site or did you give a url?\neg:https://www.site_name.com")  
+            ans=messagebox.askquestion("Confirm","Select a E-commerse site or did you give a url?\neg:https://www.site_name.com/product_name")  
             if (ans=="yes"):
                 matched_elements = browser.get(product)
                 tk.withdraw()
@@ -40,7 +107,7 @@ def product_search(browser,product):
 
     tk=Tk()
     tk.title("search")
-    tk.geometry("300x100")
+    tk.geometry("250x150")
     l1=Label(tk,text="select a E-commerce site")
     l1.place(x=40,y=60)
     l1.pack()
@@ -49,6 +116,8 @@ def product_search(browser,product):
     r2=Radiobutton(tk,text="amazon",variable=radio,value=2)
     r1.pack(anchor=W)
     r2.pack(anchor=W)
+    l2=Label(tk,text="if you give URL of product,\nclick ok")
+    l2.pack()
     b1=Button(tk,text="Ok",width=9,command=search)
     b1.pack()
     tk.mainloop()
@@ -59,20 +128,25 @@ def product_search(browser,product):
 def set_browser(browser,product):
     #print(str(radio.get()))
     
+
     if (browser=="google crome"):
-        browserdriver = webdriver.Chrome('chromedriver')
+        driver_path = os.path.join(os.getcwd(), 'chromedriver')
+        browserdriver = webdriver.Chrome(driver_path)
         product_search(browserdriver,product)
         pass
            
     elif (browser=="microsoft edge"):
-        browserdriver = webdriver.Edge()
+        driver_path = os.path.join(os.getcwd(), '')
+        browserdriver = webdriver.Edge(driver_path)
         product_search(browserdriver,product)
         pass
               
     elif (browser=="mozilla firefox"):
-        browserdriver = webdriver.Firefox()
+        driver_path = os.path.join(os.getcwd(), '')
+        browserdriver = webdriver.Firefox(driver_path)
         product_search(browserdriver,product)
         pass 
+    
             
         
         
@@ -83,4 +157,4 @@ def send_mail():
     
     pass
 
-set_browser("google crome","https://www.amazon.com/")
+set_browser("google crome","watch")
