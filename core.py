@@ -3,6 +3,7 @@ from tkinter import messagebox
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
+from selenium.webdriver.common.keys import Keys
 
 
 
@@ -150,11 +151,58 @@ def set_browser(browser,product):
             
         
         
-def compare():
+def compare(browser,product):
     
-    pass
+    if (browser=="google crome"):
+        driver_path = os.path.join(os.getcwd(), 'chromedriver')
+        browserdriver = webdriver.Chrome(driver_path)
+        url="https://www.flipkart.com"
+        url1="https://www.amazon.in"
+        flip_search(browserdriver,product,url)
+        browserdriver.execute_script('''window.open("about:blank", "_blank");''')
+        browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+        browserdriver.switch_to.window(browserdriver.window_handles[1])
+        #actions = ActionChains(browserdriver)      
+        #actions.key_down(Keys.CONTROL).key_down(Keys.TAB).key_up(Keys.TAB).key_up(Keys.CONTROL).perform()
+        #body = browserdriver.find_element_by_tag_name("body")
+        #body.send_keys(Keys.CONTROL + 't')
+        amaz_search(browserdriver,product,url1)
+        #product_search(browserdriver,product)
+        pass
+           
+    elif (browser=="microsoft edge"):
+        driver_path = os.path.join(os.getcwd(), '')
+        browserdriver = webdriver.Edge(driver_path)
+        url="https://www.flipkart.com"
+        url1="https://www.amazon.in"
+        flip_search(browserdriver,product,url)
+        browserdriver.execute_script('''window.open("about:blank", "_blank");''')
+        browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+        browserdriver.switch_to.window(browserdriver.window_handles[1])
+        amaz_search(browserdriver1,product,url1)
+        #product_search(browserdriver,product)
+        pass
+              
+    elif (browser=="mozilla firefox"):
+        driver_path = os.path.join(os.getcwd(), '')
+        browserdriver = webdriver.Firefox(driver_path)
+        url="https://www.flipkart.com"
+        url1="https://www.amazon.in"
+        flip_search(browserdriver,product,url)
+        browserdriver.execute_script('''window.open("about:blank", "_blank");''')
+        browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
+        browserdriver.switch_to.window(browserdriver.window_handles[1])
+        amaz_search(browserdriver1,product,url1)
+        #product_search(browserdriver,product)
+        pass
+    
+        
+    
 def send_mail():
     
     pass
+   
 
-set_browser("google crome","watch")
+
+
+compare("google crome","watch")
