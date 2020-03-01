@@ -157,8 +157,8 @@ class Ui_Dialog(object):
         
         self.pushButton.clicked.connect(self.search)
         self.pushButton_2.clicked.connect(self.compare)
-        self.pushButton_3.clicked.connect(self.set_mail)
-        self.pushButton_4.clicked.connect(self.clear)
+        self.pushButton_3.clicked.connect(self.save_link)
+        self.pushButton_4.clicked.connect(self.show_link)
         self.pushButton_5.clicked.connect(self.send_mail)
         self.pushButton_6.clicked.connect(self.clear_data)
         self.pushButton_7.clicked.connect(self.close)
@@ -171,9 +171,10 @@ class Ui_Dialog(object):
     def compare(self):
         compare()
         pass
-    def set_mail(self):
+    def save_link(self):
+        
         pass
-    def clear(self):
+    def show_link(self):
         
         pass
     def send_mail(self):
