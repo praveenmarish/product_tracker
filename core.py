@@ -7,7 +7,9 @@ from selenium.webdriver.common.keys import Keys
 
 
 
-
+def save(val,val1,val2):
+    print(val+val1+val2)
+    pass
 
 
 
@@ -34,7 +36,8 @@ def flip_search(driver,product,url):
     # Here BeautifulSoup is dump page source into html format
     #soup = BeautifulSoup(page_html, 'html.parser')
     #driver.quit()
-    pass
+    url=driver.current_url
+    return url
 
 
 def amaz_search(driver,product,url):
@@ -54,8 +57,8 @@ def amaz_search(driver,product,url):
     # Here BeautifulSoup is dump page source into html format
     #soup = BeautifulSoup(page_html, 'html.parser')
     #driver.quit()
-    
-    pass
+    url=driver.current_url
+    return url
 
 
     
@@ -77,9 +80,9 @@ def product_search(browser,product):
             #soup=BeautifulSoup(browser.page_source,'html.parser')
             
             #print(soup)
-            flip_search(browser,product,url)
+            url=flip_search(browser,product,url)
             tk.withdraw()
-            pass 
+             
         
         elif (radio.get()==2):
             url="https://www.amazon.in"
@@ -87,21 +90,21 @@ def product_search(browser,product):
             #soup=BeautifulSoup(browser.page_source,'html.parser')
             #print(soup)
             
-            amaz_search(browser,product,url)
+            url=amaz_search(browser,product,url)
             tk.withdraw()
-            pass
+            
         
         else:
             ans=messagebox.askquestion("Confirm","Select a E-commerse site or did you give a url?\neg:https://www.site_name.com/product_name")  
             if (ans=="yes"):
                 matched_elements = browser.get(product)
                 tk.withdraw()
-                pass
-            
-            else:
-                pass
+                url=browser.current_url
+                
+           
             #matched_elements = driver.get("https://"++)
-            pass
+    
+        
             
         
 
@@ -122,7 +125,8 @@ def product_search(browser,product):
     b1=Button(tk,text="Ok",width=9,command=search)
     b1.pack()
     tk.mainloop()
-    pass
+    url=browser.current_url
+    return url
     
         
         
@@ -133,20 +137,21 @@ def set_browser(browser,product):
     if (browser=="google crome"):
         driver_path = os.path.join(os.getcwd(), 'chromedriver')
         browserdriver = webdriver.Chrome(driver_path)
-        product_search(browserdriver,product)
-        pass
+        url=product_search(browserdriver,product)
+        
            
     elif (browser=="microsoft edge"):
         driver_path = os.path.join(os.getcwd(), '')
         browserdriver = webdriver.Edge(driver_path)
-        product_search(browserdriver,product)
-        pass
+        url=product_search(browserdriver,product)
+        
               
     elif (browser=="mozilla firefox"):
         driver_path = os.path.join(os.getcwd(), '')
         browserdriver = webdriver.Firefox(driver_path)
-        product_search(browserdriver,product)
-        pass 
+        url=product_search(browserdriver,product)
+        
+    return url
     
             
         
@@ -158,7 +163,8 @@ def compare(browser,product):
         browserdriver = webdriver.Chrome(driver_path)
         url="https://www.flipkart.com"
         url1="https://www.amazon.in"
-        flip_search(browserdriver,product,url)
+        urls=flip_search(browserdriver,product,url)
+        #print (browserdriver.current_url)
         browserdriver.execute_script('''window.open("about:blank", "_blank");''')
         browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
         browserdriver.switch_to.window(browserdriver.window_handles[1])
@@ -166,35 +172,38 @@ def compare(browser,product):
         #actions.key_down(Keys.CONTROL).key_down(Keys.TAB).key_up(Keys.TAB).key_up(Keys.CONTROL).perform()
         #body = browserdriver.find_element_by_tag_name("body")
         #body.send_keys(Keys.CONTROL + 't')
-        amaz_search(browserdriver,product,url1)
+        urls1=amaz_search(browserdriver,product,url1)
+        #print (browserdriver.current_url)
         #product_search(browserdriver,product)
-        pass
+        return urls,urls1
+        
            
     elif (browser=="microsoft edge"):
         driver_path = os.path.join(os.getcwd(), '')
         browserdriver = webdriver.Edge(driver_path)
         url="https://www.flipkart.com"
         url1="https://www.amazon.in"
-        flip_search(browserdriver,product,url)
+        urls=flip_search(browserdriver,product,url)
         browserdriver.execute_script('''window.open("about:blank", "_blank");''')
         browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
         browserdriver.switch_to.window(browserdriver.window_handles[1])
-        amaz_search(browserdriver1,product,url1)
+        urls1=amaz_search(browserdriver1,product,url1)
         #product_search(browserdriver,product)
-        pass
+        return urls,urls1
+        
               
     elif (browser=="mozilla firefox"):
         driver_path = os.path.join(os.getcwd(), '')
         browserdriver = webdriver.Firefox(driver_path)
         url="https://www.flipkart.com"
         url1="https://www.amazon.in"
-        flip_search(browserdriver,product,url)
+        urls=flip_search(browserdriver,product,url)
         browserdriver.execute_script('''window.open("about:blank", "_blank");''')
         browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
         browserdriver.switch_to.window(browserdriver.window_handles[1])
-        amaz_search(browserdriver1,product,url1)
+        urls1=amaz_search(browserdriver1,product,url1)
         #product_search(browserdriver,product)
-        pass
+        return urls,urls1
     
         
     
@@ -204,5 +213,6 @@ def send_mail():
    
 
 
-
-compare("google crome","watch")
+val3=""
+val,val1=compare("google crome","watch")
+save(val,val1,val3)
