@@ -2,7 +2,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from core import set_browser, compare, send_mail
+from core import set_browser, compare, send_mail,save_link
 
 
 class Ui_Dialog(object):
@@ -166,15 +166,18 @@ class Ui_Dialog(object):
     
     
     def search(self):
-        set_browser(str(self.comboBox.currentText()),self.lineEdit.text())
+        self.url=""
+        self.url=set_browser(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
     
     def compare(self):
-        compare(str(self.comboBox.currentText()),self.lineEdit.text())
+        self.url1=""
+        self.url2=""
+        self.url1,self.url2=compare(str(self.comboBox.currentText()),self.lineEdit.text())
         pass
     
     def save_link(self):
-        
+        save_link(self.url,self.url1,self.url2)
         pass
     
     def show_link(self):
