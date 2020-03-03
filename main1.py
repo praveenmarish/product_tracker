@@ -2,7 +2,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from core import operations
+from core1 import operations
 
 
 class Ui_Dialog(object):
@@ -129,7 +129,7 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-        pass
+        
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -155,7 +155,9 @@ class Ui_Dialog(object):
         self.comboBox.addItem("google crome")
         self.comboBox.addItem("microsoft edge")
         self.comboBox.addItem("mozilla firefox")
-        #self.comboBox.addItem("safari")
+        
+        self.url=""
+        
         
         self.pushButton.clicked.connect(self.search)
         self.pushButton_2.clicked.connect(self.compare)
@@ -164,64 +166,61 @@ class Ui_Dialog(object):
         self.pushButton_5.clicked.connect(self.send_mail)
         self.pushButton_6.clicked.connect(self.clear_data)
         self.pushButton_7.clicked.connect(self.close)
-        pass
+       
     
-    def intiate(self):
+    def initiate(self):
         self.load=operations(str(self.comboBox.currentText()),self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_4.text())        
         
-        self.load.set_browser()
+        
         
     
     
     
     def search(self):
         
-        initiate()
-        self.load.search()
+        self.initiate()
+        self.load.set_browser()
+        self.load.product_search()
         
-        #self.url=set_browser(str(self.comboBox.currentText()),self.lineEdit.text())
-        pass
+        
     
     def compare(self):
         
-        initiate()
-        
+        self.initiate()
+        self.load.set_browser()
         self.load.compare()
         
         
-        #self.url1=""
-        #self.url2=""
-        #self.url1,self.url2=compare(str(self.comboBox.currentText()),self.lineEdit.text())
-        pass
+        
     
     def save_link(self):
         
-        initiate()
+        self.initiate()
         self.load.save_link()
         
-        #save_link(self.url,self.url1,self.url2)
-        pass
+        
     
     def show_link(self):
+        self.initiate()
+        self.load.show_link()
         
-        pass
     
     def send_mail(self):
         
-        initiate()
+        self.initiate()
         self.load.send_mail()
-        pass
+        
     
     def clear_data(self):
         self.lineEdit.clear()
         self.lineEdit_2.clear()
         self.lineEdit_3.clear()
         self.lineEdit_4.clear()
-        pass
+        
     
     def close(self):
         QtCore.QCoreApplication.instance().quit()
-        pass
+        
 
 
 if __name__ == "__main__":
