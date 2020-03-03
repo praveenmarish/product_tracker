@@ -4,13 +4,14 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 import os
 from selenium.webdriver.common.keys import Keys
+from pymongo import MongoClient 
 
 
 
 class operations:
     def __init__(self,browser,product,emailid,password,targetid):
-        url="https://www.flipkart.com"
-        url1="https://www.amazon.in"
+        self.url="https://www.flipkart.com"
+        self.url1="https://www.amazon.in"
         self.browser=browser
         self.product=product
         self.emailid=emailid
@@ -18,19 +19,95 @@ class operations:
         self.targetid=targetid
         
         
-    def save():
-        print(self.browserdriver.current_url)
-        pass
+    def save_link(self):
+        def save():
+            print(product)
+            print(url)
+                
+            try: 
+                conn = MongoClient() 
+                print("Connected successfully!!!") 
+            except:   
+                print("Could not connect to MongoDB")
+        
+    
+            # database 
+            db = conn.database 
+          
+            # Created or Switched to collection names: my_gfg_collection 
+            collection = db.sites 
+  
+            product_entry = {
+                "product_name":product, 
+                "URL":url
+                } 
+        
+          
+            # Insert Data 
+            rec_id = collection.insert_one(product_entry) 
+        
+          
+            print("Data inserted with record ids",rec_id)
+            tk.withdraw()
+            
+            
+            
+        
+        tk=Tk()
+        tk.title("save to database")
+        tk.geometry("450x200")
+        l1=Label(tk,text="Fill the details to save")
+        l1.place(x=40,y=60)
+        l1.pack()
+        l2=Label(tk,text="Enter product name:")
+        l2.place(x=20,y=50)
+        e1=Entry(tk,width = 40)
+        e1.place(x=150,y=50)
+        l3=Label(tk,text="URL")
+        l3.place(x=20,y=100)
+        
+        e2=Entry(tk,width = 40)
+        e2.place(x=150,y=100)
+        product=e1.get()
+        url=e2.get()
+        
+        b1=Button(tk,text="Save",width=10,command=save).place(x=200,y=140)
+        tk.mainloop()
         
         
-    def send_mail():
+            
+            
+  
+
+    def show_link():
+        try:
+            conn = MongoClient() 
+            print("Connected successfully!!!") 
+        except:   
+            print("Could not connect to MongoDB")
+        
+    
+        # database 
+        db = conn.database 
+      
+        # Created or Switched to collection names: my_gfg_collection 
+        collection = db.sites 
+        cursor = collection.find() 
+        for record in cursor:
+            print(record) 
+  
+
+      
+        
+        
+    def send_mail(self):
           
         pass
 
             
-    def compare():
+    def compare(self):
     
-        if (browser=="google crome"):
+        if (self.browser=="google crome"):
             self.flip_search()
             self.browserdriver.execute_script('''window.open("about:blank", "_blank");''')
             self.browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
@@ -39,7 +116,7 @@ class operations:
             
             
                
-        elif (browser=="microsoft edge"):
+        elif (self.browser=="microsoft edge"):
             self.flip_search()
             self.browserdriver.execute_script('''window.open("about:blank", "_blank");''')
             self.browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
@@ -48,7 +125,7 @@ class operations:
             
             
                   
-        elif (browser=="mozilla firefox"):
+        elif (self.browser=="mozilla firefox"):
             self.flip_search()
             self.browserdriver.execute_script('''window.open("about:blank", "_blank");''')
             self.browserdriver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + Keys.TAB)
@@ -58,18 +135,19 @@ class operations:
             
             
             
-    def amaz_search():
-        self.browserdriver.get(url1)      
+    def amaz_search(self):
+        self.browserdriver.get(self.url1)      
         search_field=self.browserdriver.find_element_by_xpath("""//*[@id="twotabsearchtextbox"]""")
         search_field.send_keys(self.product)
         search_field.submit()
+        tk.withdraw()
     
         
         
-    def flip_search():
-        self.browserdriver.get(url)
+    def flip_search(self):
+        self.browserdriver.get(self.url)
         try:
-            login_pop = browserdriver.find_element_by_class_name('_29YdH8')
+            login_pop = self.browserdriver.find_element_by_class_name('_29YdH8')
             # Here .click function use to tap on desire elements of webpage
             login_pop.click()
             print('pop-up closed')
@@ -80,7 +158,8 @@ class operations:
         # Here I get search field id from driver
         search_field = self.browserdriver.find_element_by_class_name('LM6RPg')
         # Here .send_keys is use to input text in search field
-        search_field.send_keys(self.product + '\n')      
+        search_field.send_keys(self.product + '\n')
+        tk.withdraw()
         
         
         
@@ -89,19 +168,20 @@ class operations:
            
             if (radio.get()==1):
                 self.flip_search()
-                tk.withdraw()
+                
              
         
             elif (radio.get()==2):
                 self.amaz_search()
-                tk.withdraw()
+                
                 
         
-            else:
-                ans=messagebox.askquestion("Confirm","Select a E-commerse site or did you give a url?\neg:https://www.site_name.com/product_name")  
+            elif(radio.get()==0):
+                ans=messagebox.askquestion("Confirm","Select a E-commerse site or did you want to open browser?")  
                 if (ans=="yes"):
-                    search = self.browserdriver.get(self.product)
+                    self.browserdriver.get(self.product)
                     tk.withdraw()
+                    
                    
 
 
@@ -146,3 +226,4 @@ class operations:
             self.product_search()
         
      
+    
