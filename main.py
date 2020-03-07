@@ -11,40 +11,37 @@ from core import operations
 class Ui_MainWindow(object):
 
     def initiate(self):
-        self.load=operations()
-        self.load.Get_Data(str(self.comboBox.currentText()),self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_4.text())
+        self.load=operations(str(self.comboBox.currentText()),self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_4.text())
+
+    def search_window(self):
+        self.initiate()
+        self.window=QtWidgets.QMainWindow()
+        self.ui=Search_Design(self.load)
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def link_window(self):
         self.initiate()
         self.window=QtWidgets.QMainWindow()
-        self.ui=Links_Design()
+        self.ui=Links_Design(self.load)
         self.ui.setupUi(self.window)
         self.window.show()
-
-
-    def search_window(self):
-        self.initiate()
-        self.load.set_browser()
-        self.window=QtWidgets.QMainWindow()
-        self.ui=Search_Design()
-        self.ui.setupUi(self.window)
-        self.window.show()
+        pass
 
 
     def save_window(self):
         self.initiate()
         self.window=QtWidgets.QMainWindow()
-        self.ui=Save_Design()
+        self.ui=Save_Design(self.load)
         self.ui.setupUi(self.window)
         self.window.show()
-
+        pass
 
     def compare(self):
         self.initiate()
         self.load.compare()
-        #self.load.set_browser()
-        #self.load.amaz_search()
-        #self.load.flip_search()
+        pass
+
 
 
     def clear_data(self):
