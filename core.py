@@ -9,9 +9,10 @@ from pymongo import MongoClient
 
 
 class operations:
-    def Get_Data(self,browser,product,emailid,password,targetid):
+    def __init__(self,browser,product,emailid,password,targetid):
         self.url="https://www.flipkart.com"
         self.url1="https://www.amazon.in"
+        self.url3="https://accounts.google.com/signin/v2/identifier?service=accountsettings&continue=https%3A%2F%2Fmyaccount.google.com%2F%3Futm_source%3DOGB%26tab%3Drk1%26utm_medium%3Dapp&csig=AF-SEnb_VvdqbWeCSl9g%3A1583582267&flowName=GlifWebSignIn&flowEntry=AddSession"
         self.browser=browser
         self.product=product
         self.emailid=emailid
@@ -19,47 +20,36 @@ class operations:
         self.targetid=targetid
         
         
-    def save_link(self):
-        def save():
-            
-            try: 
-                conn = MongoClient() 
-                print("Connected successfully!!!") 
-            except:   
-                print("Could not connect to MongoDB")
-        
     
-            # database 
-            db = conn.database 
+    def save(self,product,url):
+            
+        try: 
+            conn = MongoClient("mongodb://localhost:27017/") 
+
+        except:
+            print("can't connect able to connect to db")  
+           
+        # database 
+        db = conn.database 
           
-            # Created or Switched to collection names: my_gfg_collection 
-            collection = db.sites 
+        # Created or Switched to collection names: my_gfg_collection 
+        collection = db.sites 
   
-            product_entry = {
-                "product_name":"product", 
-                "URL":"url"
-                } 
+        product_entry = {
+            "product_name":product, 
+            "URL":url
+            } 
         
           
-            # Insert Data 
-            rec_id = collection.insert_one(product_entry) 
-        
-          
-            print("Data inserted with record ids",rec_id)
-            
-            
-            
-            
-       
-        
-            
+        # Insert Data 
+        collection.insert_one(product_entry) 
             
   
 
-    def show_link():
+    def show_link(self):
         try:
-            conn = MongoClient() 
-            print("Connected successfully!!!") 
+            conn = MongoClient("mongodb://localhost:27017/") 
+            
         except:   
             print("Could not connect to MongoDB")
         
@@ -74,12 +64,45 @@ class operations:
             print(record) 
   
 
-      
+    def delete(self,product,url):
+        try: 
+            conn = MongoClient("mongodb://localhost:27017/") 
+
+        except:
+            print("can't connect able to connect to db")  
+           
+        # database 
+        db = conn.database 
+          
+        # Created or Switched to collection names: my_gfg_collection 
+        collection = db.sites 
+  
+        collection.delete_one = {
+            "product_name":product, 
+            "URL":url
+            } 
+
+
+
         
         
     def send_mail(self):
-          
-        pass
+        self.browserdriver.get(self.url3)
+        user_name_field = self.browserdriver.find_element_by_xpath("""//*[@id="identifierId"]""")
+        user_name_field.send_keys(self.emailid)
+        u_form_next = self.browserdriver.find_element_by_class_name('CwaK9')
+        u_form_next.click()
+        #password_field=self.browserdriver.find_element_by_class_name('Xb9hP')
+        #password_field.send_keys(self.password)
+        self.browserdriver.implicitly_wait(20)
+        password_field=self.browserdriver.find_element_by_xpath("""//*[@id="password"]/div[1]/div/div[1]/input""")
+        #password_field=self.browserdriver.find_elements_by_name('password')
+        #password_field.clear()
+        password_field.send_keys(self.password)
+        p_form_next=self.browserdriver.find_element_by_class_name('CwaK9')
+        p_form_next.click()
+       
+        
 
             
     def compare(self):
