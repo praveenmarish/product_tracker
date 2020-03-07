@@ -5,6 +5,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Links_Design(object):
+
+    def __init__(self,load):
+        self.load=load
+
+    def sendmail(self):
+        self.load.set_browser()
+        self.load.send_mail()
+
+    def next(self):
+        self.load.show_link()
+ 
+    def delete(self):
+        self.load.delete(self.lineEdit.text(),self.lineEdit_2.text())
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(363, 229)
@@ -91,12 +105,6 @@ class Links_Design(object):
         self.pushButton_3.setText(_translate("Dialog", "Next"))
         self.pushButton.setText(_translate("Dialog", "Send mail"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Links_Design()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
+        self.pushButton.clicked.connect(self.sendmail)
+        self.pushButton_2.clicked.connect(self.delete)
+        self.pushButton_3.clicked.connect(self.next)
