@@ -1,9 +1,14 @@
 #save design
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from core import operations
 
 
 class Save_Design(object):
+
+    def __init__(self,load):
+        self.load=load
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(363, 230)
@@ -79,12 +84,7 @@ class Save_Design(object):
         self.label_4.setText(_translate("Dialog", "Click ok to save link"))
         self.pushButton.setText(_translate("Dialog", "Ok"))
 
+        self.pushButton.clicked.connect(self.save)
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Save_Design()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
+    def save(self):
+        self.load.save(self.lineEdit.text(),self.lineEdit_2.text())
