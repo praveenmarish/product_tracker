@@ -3,9 +3,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from core import operations
 from YesorNo import App
+import sys
 
 
 class Search_Design(object):
+    
+    def __init__(self,load):
+        self.load=load
+
+
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(363, 229)
@@ -66,15 +73,13 @@ class Search_Design(object):
         self.radioButton_2.setText(_translate("Dialog", "amazone"))
         self.label_2.setText(_translate("Dialog", "If you given url of a product click Go"))
         self.pushButton.setText(_translate("Dialog", "Go"))
+        
 
         self.pushButton.clicked.connect(self.search)
 
 
     def search(self):
-        self.load=operations()
-
         
-
         if (self.radioButton.isChecked()==True):
             self.load.set_browser()
             self.load.flip_search()
@@ -86,31 +91,16 @@ class Search_Design(object):
             self.load.amaz_search()
 
         
+
         else:
             self.YesorNo_window()
+            
 
     
 
 
     def YesorNo_window(self):
         self.window=QtWidgets.QMainWindow()
-        self.ui=App()
-        #self.ui.setupUi(self.window)
-        #self.window.show()
-            
+        self.ui=App(self.load)
 
-                
-            
-              
-
-
-
-"""
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Search_Design()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())"""
+        
