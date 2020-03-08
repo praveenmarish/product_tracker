@@ -8,6 +8,10 @@ class Save_Design(object):
 
     def __init__(self,load):
         self.load=load
+        try:
+            self.url=self.load.browserdriver.current_url()
+        except:
+            self.url=""
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -83,6 +87,9 @@ class Save_Design(object):
         self.label_3.setText(_translate("Dialog", "URL:"))
         self.label_4.setText(_translate("Dialog", "Click ok to save link"))
         self.pushButton.setText(_translate("Dialog", "Ok"))
+        
+        if(self.url != ""):
+            self.lineEdit_2.setText(self.url)
 
         self.pushButton.clicked.connect(self.save)
 
