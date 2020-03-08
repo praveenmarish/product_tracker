@@ -11,10 +11,19 @@ class Links_Design(object):
 
     def sendmail(self):
         self.load.set_browser()
-        self.load.send_mail()
+        self.load.send_mail(self.lineEdit.text(),self.lineEdit_2.text())
 
     def next(self):
-        self.load.show_link()
+        try:
+            product,url=self.load.show_link()
+            self.lineEdit.setText(product)
+            self.lineEdit_2.setText(url)
+        except:
+            self.lineEdit.setText("")
+            self.lineEdit_2.setText("")
+            self.pushButton_3.setText("End")
+        #print(product)
+        #print(url)
  
     def delete(self):
         self.load.delete(self.lineEdit.text(),self.lineEdit_2.text())
@@ -102,7 +111,7 @@ class Links_Design(object):
         self.label_3.setText(_translate("Dialog", "URL:"))
         self.label_2.setText(_translate("Dialog", "Product name:"))
         self.pushButton_2.setText(_translate("Dialog", "Delete"))
-        self.pushButton_3.setText(_translate("Dialog", "Next"))
+        self.pushButton_3.setText(_translate("Dialog", "Show"))
         self.pushButton.setText(_translate("Dialog", "Send mail"))
 
         self.pushButton.clicked.connect(self.sendmail)
