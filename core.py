@@ -18,66 +18,44 @@ class operations:
         self.emailid=emailid
         self.password=password
         self.targetid=targetid
+        self.conn = MongoClient("mongodb://localhost:27017/")
+        self.db = self.conn.database 
+        self.collection = self.db.sites
+        self.cursor = self.collection.find()
         
         
     
     def save(self,product,url):
-            
-        try: 
-            conn = MongoClient("mongodb://localhost:27017/") 
 
-        except:
-            print("can't connect able to connect to db")  
-           
-        # database 
-        db = conn.database 
-          
-        # Created or Switched to collection names: my_gfg_collection 
-        collection = db.sites 
-  
         product_entry = {
             "product_name":product, 
             "URL":url
             } 
-        
-          
-        # Insert Data 
-        collection.insert_one(product_entry) 
+
+        self.collection.insert_one(product_entry) 
             
   
 
     def show_link(self):
-        try:
-            conn = MongoClient("mongodb://localhost:27017/") 
-            
-        except:   
-            print("Could not connect to MongoDB")
-        
-    
-        # database 
-        db = conn.database 
-      
-        # Created or Switched to collection names: my_gfg_collection 
-        collection = db.sites 
-        cursor = collection.find() 
-        for record in cursor:
-            print(record) 
-  
+        product_name=""
+        url=""
+        for record in self.cursor:
+            for key,value in record.items():
+                for i in range (2):
+                    if (key=="product_name"):
+                        product_name=value
+                    elif (key=="URL"):
+                        url=value
+            if (product_name!="" and url!=""):
+                return product_name,url
+
 
     def delete(self,product,url):
-        try: 
-            conn = MongoClient("mongodb://localhost:27017/") 
-
-        except:
-            print("can't connect able to connect to db")  
-           
-        # database 
-        db = conn.database 
           
         # Created or Switched to collection names: my_gfg_collection 
-        collection = db.sites 
+        self.collection = self.db.sites 
   
-        collection.delete_one = {
+        self.collection.delete_one = {
             "product_name":product, 
             "URL":url
             } 
@@ -86,7 +64,7 @@ class operations:
 
         
         
-    def send_mail(self):
+    def send_mail(self,product,url):
         self.browserdriver.get(self.url3)
         user_name_field = self.browserdriver.find_element_by_xpath("""//*[@id="identifierId"]""")
         user_name_field.send_keys(self.emailid)
@@ -94,13 +72,29 @@ class operations:
         u_form_next.click()
         #password_field=self.browserdriver.find_element_by_class_name('Xb9hP')
         #password_field.send_keys(self.password)
-        self.browserdriver.implicitly_wait(20)
+        self.browserdriver.implicitly_wait(30)
         password_field=self.browserdriver.find_element_by_xpath("""//*[@id="password"]/div[1]/div/div[1]/input""")
         #password_field=self.browserdriver.find_elements_by_name('password')
         #password_field.clear()
         password_field.send_keys(self.password)
         p_form_next=self.browserdriver.find_element_by_class_name('CwaK9')
         p_form_next.click()
+
+        self.browserdriver.implicitly_wait(2000)
+        compose=self.browserdriver.find_element_by_class_name('T-I J-J5-Ji T-I-KE L3')
+        compose.click()
+        self.browserdriver.implicitly_wait(200)
+        to_address=self.browserdriver.find_elements_by_xpath("""//*[@id=":pk"]""")
+        to_address.send_keys(self.targetid)
+        subject=self.browserdriver.find_elements_by_xpath("""//*[@id=":p2"]""")
+        subject.send_keys(product)
+        condent=self.browserdriver.find_elements_by_xpath("""//*[@id=":q7"]""")
+        condent.send_keys(url)
+
+        self.browserdriver.implicitly_wait(200)
+        send=self.browserdriver.find_element_by_class_name('T-I J-J5-Ji aoO v7 T-I-atl L3')
+        send.click()
+
        
         
 
