@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QMessageBox
 from core import operations
+from warning import warnings
+from PyQt5 import QtCore, QtGui, QtWidgets
 
-class App(QWidget):
+class App(QtWidgets.QWidget):
 
     def __init__(self,load):
         self.load=load
@@ -11,7 +12,10 @@ class App(QWidget):
         
     def initUI(self):
 
-        buttonReply = QMessageBox.question(self, 'Message', "Do you like to open browser?\nWithout search a product", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
-        if buttonReply == QMessageBox.Yes:
-            self.load.set_browser()         
+        buttonReply = QtWidgets.QMessageBox.question(self, 'Message', "Do you like to open browser?\nWithout search a product", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.Yes)
+        if buttonReply == QtWidgets.QMessageBox.Yes:
+            res=self.load.set_browser()
+            if (res == False):
+                self.window=QtWidgets.QMainWindow()
+                self.ui=warnings("Problem on opening browser")
         
