@@ -18,12 +18,11 @@ class Links_Design(object):
             product,url=self.load.show_link()
             self.lineEdit.setText(product)
             self.lineEdit_2.setText(url)
+            self.pushButton_3.setText("Next")
         except:
             self.lineEdit.setText("")
             self.lineEdit_2.setText("")
             self.pushButton_3.setText("End")
-        #print(product)
-        #print(url)
  
     def delete(self):
         self.load.delete(self.lineEdit.text(),self.lineEdit_2.text())
