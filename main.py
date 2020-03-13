@@ -7,11 +7,12 @@ from save import Save_Design
 from link import Links_Design
 from core import operations
 
-
 class Ui_MainWindow(object):
+
 
     def initiate(self):
         self.load=operations(str(self.comboBox.currentText()),self.lineEdit.text(),self.lineEdit_2.text(),self.lineEdit_3.text(),self.lineEdit_4.text())
+
 
     def search_window(self):
         self.initiate()
@@ -19,6 +20,7 @@ class Ui_MainWindow(object):
         self.ui=Search_Design(self.load)
         self.ui.setupUi(self.window)
         self.window.show()
+
 
     def link_window(self):
         self.initiate()
@@ -37,11 +39,11 @@ class Ui_MainWindow(object):
         self.window.show()
         pass
 
+
     def compare(self):
         self.initiate()
         self.load.compare()
         pass
-
 
 
     def clear_data(self):
@@ -53,7 +55,6 @@ class Ui_MainWindow(object):
 
     def close(self):
         QtCore.QCoreApplication.instance().quit()
-
 
 
     def setupUi(self, MainWindow):
@@ -205,6 +206,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -226,11 +228,9 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "Password:"))
         self.pushButton_4.setText(_translate("MainWindow", "Show link"))
 
-
         self.comboBox.addItem("google crome")
         self.comboBox.addItem("microsoft edge")
         self.comboBox.addItem("mozilla firefox")
-
 
         self.pushButton.clicked.connect(self.search_window)
         self.pushButton_2.clicked.connect(self.compare)
@@ -240,9 +240,6 @@ class Ui_MainWindow(object):
         self.pushButton_6.clicked.connect(self.clear_data)
         self.pushButton_7.clicked.connect(self.close)
 
-
-
-    
 
 if __name__ == "__main__":
     import sys
