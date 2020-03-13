@@ -5,12 +5,11 @@ from core import operations
 from YesorNo import App
 import sys
 
-
 class Search_Design(object):
+    
     
     def __init__(self,load):
         self.load=load
-
 
 
     def setupUi(self, Dialog):
@@ -65,6 +64,7 @@ class Search_Design(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -74,7 +74,6 @@ class Search_Design(object):
         self.label_2.setText(_translate("Dialog", "If you given url of a product click Go"))
         self.pushButton.setText(_translate("Dialog", "Go"))
         
-
         self.pushButton.clicked.connect(self.search)
 
 
@@ -84,20 +83,13 @@ class Search_Design(object):
             self.load.set_browser()
             self.load.flip_search()
 
-
-
         elif (self.radioButton_2.isChecked()==True):
             self.load.set_browser()
-            self.load.amaz_search()
-
-        
+            self.load.amaz_search()        
 
         else:
             self.YesorNo_window()
             
-
-    
-
 
     def YesorNo_window(self):
         self.window=QtWidgets.QMainWindow()
