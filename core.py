@@ -9,8 +9,9 @@ from warning import warnings
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-
 class operations:
+
+
     def __init__(self,browser,product,emailid,password,targetid):
         self.url="https://www.flipkart.com"
         self.url1="https://www.amazon.in"
@@ -20,6 +21,7 @@ class operations:
         self.emailid=emailid
         self.password=password
         self.targetid=targetid
+        self.window=QtWidgets.QMainWindow()
         try:
             self.conn = MongoClient("mongodb://localhost:27017/")
             self.db = self.conn.database 
@@ -27,9 +29,8 @@ class operations:
             self.cursor = self.collection.find()
 
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on connecting to database")
-        
         
     
     def save(self,product,url):
@@ -42,10 +43,9 @@ class operations:
             self.collection.insert_one(product_entry)
         
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on database")
             
-  
 
     def show_link(self):
         try:
@@ -62,7 +62,7 @@ class operations:
                     return product_name,url
 
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on database")
 
 
@@ -75,12 +75,9 @@ class operations:
                 } 
 
         except:
-            self.window=QtWidgets.QMainWindow()
+           
             self.ui=warnings("Problem on database")
 
-
-
-        
         
     def send_mail(self,product,url):
         try:
@@ -109,11 +106,8 @@ class operations:
             send.click()
         
         except:
-            self.window=QtWidgets.QMainWindow()
-            self.ui=warnings("Problem on sending mail")
-
-       
-        
+            
+            self.ui=warnings("Problem on sending mail")      
 
             
     def compare(self):
@@ -144,10 +138,8 @@ class operations:
                 self.amaz_search()
 
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on searching")
-            
-            
             
             
     def amaz_search(self):
@@ -158,10 +150,8 @@ class operations:
             search_field.submit()
 
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on searching")
-        
-    
         
         
     def flip_search(self):
@@ -173,13 +163,8 @@ class operations:
             search_field.send_keys(self.product + '\n')
 
         except:
-            self.window=QtWidgets.QMainWindow()
             self.ui=warnings("Problem on searching")
         
-        
-        
-        
-    
     
     def set_browser(self):
              
@@ -199,7 +184,7 @@ class operations:
                 self.browserdriver = webdriver.Firefox(driver_path)
 
         except:
-            self.window=QtWidgets.QMainWindow()
+            
             self.ui=warnings("Problem on opening browser")
 
    
