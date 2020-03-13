@@ -6,12 +6,14 @@ from core import operations
 
 class Save_Design(object):
 
+
     def __init__(self,load):
         self.load=load
         try:
             self.url=self.load.browserdriver.current_url()
         except:
             self.url=""
+
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -79,6 +81,7 @@ class Save_Design(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -92,6 +95,7 @@ class Save_Design(object):
             self.lineEdit_2.setText(self.url)
 
         self.pushButton.clicked.connect(self.save)
+
 
     def save(self):
         self.load.save(self.lineEdit.text(),self.lineEdit_2.text())
