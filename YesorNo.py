@@ -5,10 +5,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class App(QtWidgets.QWidget):
 
+
     def __init__(self,load):
         self.load=load
         super().__init__()
         self.initUI()
+        
         
     def initUI(self):
 
