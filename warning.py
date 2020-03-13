@@ -2,6 +2,8 @@ from PyQt5 import QtWidgets
 import sys
 
 class warnings(QtWidgets.QWidget):
+
+    
     def __init__(self,message):
         super().__init__()
         self.message=message
