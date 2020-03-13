@@ -3,15 +3,17 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Links_Design(object):
+
 
     def __init__(self,load):
         self.load=load
 
+
     def sendmail(self):
         self.load.set_browser()
         self.load.send_mail(self.lineEdit.text(),self.lineEdit_2.text())
+
 
     def next(self):
         try:
@@ -23,9 +25,11 @@ class Links_Design(object):
             self.lineEdit.setText("")
             self.lineEdit_2.setText("")
             self.pushButton_3.setText("End")
- 
+
+
     def delete(self):
         self.load.delete(self.lineEdit.text(),self.lineEdit_2.text())
+
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -102,6 +106,7 @@ class Links_Design(object):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
